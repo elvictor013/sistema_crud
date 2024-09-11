@@ -24,14 +24,16 @@ class StorePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'descricao' => 'required|min:5|max:100|string'
+            'descricao' => 'required|min:5|max:100|string',
+            'conteudo'  => 'required|min:5|string'
         ];
     }
 
     public function messages() {
         return [
             'descricao.required' => 'O campo descricao é obrigatório.',
-            'descricao.min' => 'A descrição não tem o número mínimo de caracteres que são 5'
+            'descricao.min' => 'A descrição não tem o número mínimo de caracteres que são 5',
+            'conteudo.required' => 'O campo conteudo é obrigatório.'
         ];
     }
 
