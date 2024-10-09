@@ -10,8 +10,16 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index() {
-        return PostResource::collection(Post::all());
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:sanctum');
+    // }
+    public function index(Request $request) {
+        $posts = Post::with(['users'])->get();
+        // return response()->json([
+        //     'posts' => $posts
+        // ]);
+        return PostResource::collection($posts);
     }
 
     public function store(StorePostRequest $request) {

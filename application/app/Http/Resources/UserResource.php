@@ -2,10 +2,9 @@
 
 namespace App\Http\Resources;
 
-use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PostResource extends JsonResource
+class UserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,8 +16,11 @@ class PostResource extends JsonResource
     {
         return [
             'id'    => $this->id,
-            'descricao' => $this->descricao,
-            'conteudo'  => $this->conteudo
+            'name'  => $this->name,
+            'email' => $this->email,
+            'posts' => PostResource::collection(
+                $this->whenLoaded('posts')
+            )
         ];
     }
 }
