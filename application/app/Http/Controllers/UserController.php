@@ -39,7 +39,19 @@ class UserController extends Controller
     }
 
     public function show(Request $request) {
-        $user = User::find($request->route('id'));
-        return new UserResource($user);
+        $user = User::with(['posts'])->find($request->route('id'));
+        if ($user) {
+            return new UserResource($user);    
+        }
+        return response()->json([
+            'message'   => 'Não existe usuário cadastrado com este id.'
+        ]);
+    }
+
+    public function delete(Request $request) {
+        User::where('id', $request->route('id'))->delete();
+        return response()->json([
+            'message'   => 'Usuário deletado com sucesso!'
+        ]);
     }
 }

@@ -142,3 +142,16 @@
 2024/09/26 15:50:02 [notice] 1#1: start worker process 29
 2024/09/26 15:50:02 [notice] 1#1: start worker process 30
 2024/09/26 15:50:02 [notice] 1#1: start worker process 31
+2024/10/09 22:28:39 [notice] 1#1: using the "epoll" event method
+2024/10/09 22:28:39 [notice] 1#1: nginx/1.27.1
+2024/10/09 22:28:39 [notice] 1#1: built by gcc 13.2.1 20240309 (Alpine 13.2.1_git20240309) 
+2024/10/09 22:28:39 [notice] 1#1: OS: Linux 6.4.16-linuxkit
+2024/10/09 22:28:39 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2024/10/09 22:28:39 [notice] 1#1: start worker processes
+2024/10/09 22:28:39 [notice] 1#1: start worker process 29
+2024/10/09 22:28:39 [notice] 1#1: start worker process 30
+2024/10/09 22:28:39 [notice] 1#1: start worker process 31
+2024/10/09 22:28:39 [notice] 1#1: start worker process 32
+2024/10/09 23:15:08 [warn] 30#30: *12 an upstream response is buffered to a temporary file /var/cache/nginx/fastcgi_temp/1/00/0000000001 while reading upstream, client: 192.168.65.1, server: , request: "DELETE /api/users/12 HTTP/1.1", upstream: "fastcgi://172.18.0.3:9000", host: "localhost:8080"
+2024/10/09 23:16:11 [warn] 30#30: *18 an upstream response is buffered to a temporary file /var/cache/nginx/fastcgi_temp/2/00/0000000002 while reading upstream, client: 192.168.65.1, server: , request: "GET /api/users/12 HTTP/1.1", upstream: "fastcgi://172.18.0.3:9000", host: "localhost:8080"
+2024/10/09 23:23:35 [warn] 30#30: *26 an upstream response is buffered to a temporary file /var/cache/nginx/fastcgi_temp/3/00/0000000003 while reading upstream, client: 192.168.65.1, server: , request: "GET /api/users/12 HTTP/1.1", upstream: "fastcgi://172.18.0.3:9000", host: "localhost:8080"
