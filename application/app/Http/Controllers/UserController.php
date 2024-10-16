@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Exception;
@@ -15,7 +16,7 @@ class UserController extends Controller
         return UserResource::collection($users);
     }
 
-    public function store(Request $request) {
+    public function store(UserRequest $request) {
         try {
             $user = User::create([
                 'name'  => $request->name,
