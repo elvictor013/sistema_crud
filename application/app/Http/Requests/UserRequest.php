@@ -8,10 +8,8 @@ class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -19,22 +17,28 @@ class UserRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules()
+    public function rules(): array
     {
+        $userId = $this->route('user');
+
         return [
-            'email' => 'required|min:6|string',
-            'name' => 'required|min:6|string',
-            'password' => 'required|min:4|string'
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . ($userId ?  $userId->id : null),
+            'password' => 'required|confirmed|min:6',
         ];
     }
-
-    public function messages()
+    public function messages(): array
     {
-        return [
-            'email.required'    => 'O campo e-mail é obrigatório',
-            'name.required'    => 'O campo nome é obrigatório',
+        return[
+            'name.required' => 'Campo nome é obrigatorio!',
+            'email.required' => 'Campo e-mail é obrigatorio',
+            'email.email' => 'Necessário enviar e-mail válido!',
+            'email.unique' => 'O e-mail já está cadastrado',
+            'password.required' => 'Campo senha é obrigatorio!',
+            'password.confirmed' => 'A confirmação de senha não corresponde',
+            'password.min' => 'Senha com no Mínimo :min caracteres!',
         ];
     }
 }

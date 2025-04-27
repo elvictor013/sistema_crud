@@ -3,56 +3,63 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
-use App\Http\Resources\UserResource;
 use App\Models\User;
-use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+//use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index() {
-        $users = User::with(['posts'])->get();
-        return UserResource::collection($users);
-    }
-
-    public function store(UserRequest $request) {
-        try {
-            $user = User::create([
-                'name'  => $request->name,
-                'email' => $request->email,
-                'password'  => Hash::make($request->password)
-            ]);
     
-            $token = $user->createToken('auth_token')->plainTextToken;
-            return response()->json([
-                'data'          => new UserResource($user),
-                'access_token'  => $token,
-                'token_type'    => 'Bearer'
-            ]);
+    public function index(){
 
-        } catch (Exception $e) {
-            return response()->json([
-                'error'=> true,
-                'message' => $e->getMessage()
-            ]);
-        }
+    //   $users = User::orderByDesc('id')->get();
+         $users = User::orderByDesc('id')->paginate(1);
+
+        return view('users.index', ['users' => $users]);
     }
 
-    public function show(Request $request) {
-        $user = User::with(['posts'])->find($request->route('id'));
-        if ($user) {
-            return new UserResource($user);    
-        }
-        return response()->json([
-            'message'   => 'Não existe usuário cadastrado com este id.'
-        ]);
+    public function show(User $user){
+        return view('users.show', ['user' => $user]);
     }
 
-    public function delete(Request $request) {
-        User::where('id', $request->route('id'))->delete();
-        return response()->json([
-            'message'   => 'Usuário deletado com sucesso!'
+
+    public function create(){
+        return view('users.create');
+    }
+
+    public function store(UserRequest $request)
+    {
+        $request->validated();
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
         ]);
+
+        return redirect()->route('user.index')->with('success', 'usuário cadastrado com sucesso!');
+    }
+
+    public function edit(User $user){
+        return view('users.edit', ['user' => $user]);
+    }
+
+    public function update(UserRequest $request, User $user)
+    {
+        $request->validated();
+
+        //validar as informações no banco
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
+        // redirecionar o usuario, enviar a mensagem de sucesso
+        return redirect()->route('user.show', ['user' => $user->id ])->with('success', 'usuário editado com sucesso!');
+    }
+
+    public function destroy(User $user){
+        $user->delete();
+
+        return redirect()->route('user.index')->with('success', 'usuário apagado com sucesso!');
     }
 }

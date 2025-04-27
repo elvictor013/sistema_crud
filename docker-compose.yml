@@ -12,19 +12,21 @@ services:
       - meta_network
     depends_on:
       - mysql
+
   mysql:
     image: mysql:8.1.0
     container_name: mysql
     environment:
       - MYSQL_ROOT_PASSWORD=secret
-      - MYSQL_USER=meta
-      - MYSQL_PASS=secret
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=secret
     ports:
       - "3306:3306"
     volumes:
       - ./db-data:/var/lib/mysql
     networks:
       - meta_network
+
   nginx:
     build:
       context: .
@@ -34,7 +36,7 @@ services:
     networks:
       - meta_network
     volumes:
-      - ./application/:/var/www/html/
+      - ./application:/var/www/html
       - ./logs/nginx:/var/log/nginx
     container_name: nginx
 
@@ -50,5 +52,18 @@ services:
       - MYSQL_ROOT_PASSWORD=secret
     networks:
       - meta_network
+
+  node:
+    image: node:20 # ou a versão que você quiser
+    container_name: node
+    working_dir: /var/www/html
+    volumes:
+      - ./application:/var/www/html
+    command: npm run dev # agora o Vite irá rodar
+    ports:
+      - "5173:5173" # Expondo a porta 5173 para o Vite
+    networks:
+      - meta_network
+
 networks:
   meta_network:
