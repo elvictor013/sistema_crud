@@ -5,7 +5,7 @@
     <div class="card-header hstack gap-2">
         <h2>lista de requerimento</h2>
         <span class="ms-auto">
-            <a href="{{ route('user.create')}}" class="btn btn-success btn-sm">Solicitar Requerimento</a>
+            <a href="{{ route('user.create')}}" class="btn btn-success btn-sm">Cadastrar</a>
         </span>
     </div>
 

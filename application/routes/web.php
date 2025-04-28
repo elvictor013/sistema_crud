@@ -26,23 +26,5 @@ Route::group(['Middleware' => 'auth'], function(){
     Route::delete('/destroy-user/{user}', [UserController::class, 'destroy'])->name('user.destroy'); // Exclui um usuário do sistema
 });
 
-// Route::get('/', [AuthController::class, 'index'])->name('login');
-// Route::post('/login', [AuthController::class, 'loginProcess'])->name('login.process');
-// Route::get('/logout', [AuthController::class, 'destroy'])->name('login.destroy');
 
-// Route::get('/create-user-login', [AuthController::class, 'create'])->name('login.create-user'); //(cadastrar)
-// Route::post('/store-user-login', [AuthController::class, 'store'])->name('login.store-user');
-
-// // paginas privadas e publicas
-
-
-// Route::group(['Middleware' => 'auth'], function(){
-//     Route::get('/index-user', [UserController::class, 'index'])->name('user.index');
-//     Route::get('/show-user/{user}', [UserController::class, 'show'])->name('user.show');
-//     Route::get('/create-user', [UserController::class, 'create'])->name('user.create');
-//     Route::post('/store-user', [UserController::class, 'store'])->name('user.store');
-//     Route::get('/edit-user/{user}', [UserController::class, 'edit'])->name('user.edit');
-//     Route::put('/update-user/{user}', [UserController::class, 'update'])->name('user-update');
-//     Route::delete('/destroy-user/{user}', [UserController::class, 'destroy'])->name('user.destroy');    
-// });
 

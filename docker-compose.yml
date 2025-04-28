@@ -61,7 +61,7 @@ services:
       - ./application:/var/www/html
     command: npm run dev # agora o Vite irá rodar
     ports:
-      - "5173:5173" # Expondo a porta 5173 para o Vite
+      - "5174:5174" # Expondo a porta 5174 para o Vite
     networks:
       - meta_network
 
